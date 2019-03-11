@@ -13,6 +13,17 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/xenial64"
+  config.vm.network "forwarded_port", guest:5000,host:5000
+
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    # vb.gui = true
+
+    # Customize the amount of memory on the VM:
+    vb.memory = "1024"
+    vb.cpus = 1
+  end
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -32,7 +43,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -44,19 +55,45 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  # Customize the amount of memory on the VM:
+
+  ######################################################################
+  # Add Python Flask environment
+  ######################################################################
+  # Setup a Python development environment
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get install -y git python-pip python-dev build-essential
+    pip install flask
+    pip install redis
+    pip install --upgrade pip
+    apt-get -y autoremove
+    # Make vi look nice ;-)
+    sudo -H -u ubuntu echo "colorscheme desert" > ~/.vimrc
+    # Install app dependencies
+    cd /vagrant
+    sudo pip install -r requirements.txt
+  SHELL
+
+  ######################################################################
+  # Add Redis docker container
+  ######################################################################
+  config.vm.provision "shell", inline: <<-SHELL
+    # Prepare Redis data share
+    sudo mkdir -p /var/lib/redis/data
+    sudo chown ubuntu:ubuntu /var/lib/redis/data
+  SHELL
+
+  # Add Redis docker container
+  config.vm.provision "docker" do |d|
+    d.pull_images "redis:alpine"
+    d.run "redis:alpine",
+      args: "--restart=always -d --name redis -h redis -p 6379:6379 -v /var/lib/redis/data:/data"
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
+ 
   # View the documentation for the provider you are using for more
   # information on available options.
 
