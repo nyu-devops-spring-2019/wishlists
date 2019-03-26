@@ -1,23 +1,22 @@
-"""This module sets up the Flask Environment"""
+"""
+Wishlist Service Runner
+
+Start the wishlist Service and initializes logging
+"""
 import os
-#from redis import Redis
-from flask import Flask
-#jsonify, request, url_for
+from app import app, server
 
-# Create Flask application environment
-PORT = os.getenv('port', '5000')
-HOST = os.getenv('HOSTNAME', '127.0.0.1')
-REDIS_PORT = os.getenv('REDIS_PORT', '6379')
+# Pull options from environment
+DEBUG = (os.getenv('DEBUG', 'False') == 'True')
+PORT = os.getenv('PORT', '5000')
 
-app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    """This is an example service"""
-    return 'Wishlist SERVICE'
-
-if __name__ == '__main__':
-    #redis_server = redis.Redis(host=HOST, port=int(REDIS_PORT))
-    app.run(host='0.0.0.0', port=int(PORT))
-#testing
+######################################################################
+#   M A I N
+######################################################################
+if __name__ == "__main__":
+    print("************************************************************")
+    print("        WISHLIST   R E S T   A P I   S E R V I C E ")
+    print("************************************************************")
+    server.initialize_logging()
+    server.init_db()
+    app.run(host='0.0.0.0', port=int(PORT), debug=DEBUG)

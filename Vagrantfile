@@ -5,103 +5,89 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
-
+Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
+  # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
-  config.vm.network "forwarded_port", guest:5000,host:5000
-
-  config.vm.provider "virtualbox" do |vb|
-    # Display the VirtualBox GUI when booting the machine
-    # vb.gui = true
-
-    # Customize the amount of memory on the VM:
-    vb.memory = "1024"
-    vb.cpus = 1
-  end
-
-
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine and only allow access
-  # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
+  # set up network ip and port forwarding
+  config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
   config.vm.network "private_network", ip: "192.168.33.10"
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  # Windows users need to change the permissions explicitly so that Windows doesn't
+  # set the execute bit on all of your files which messes with GitHub users on Mac and Linux
+  # config.vm.synced_folder "./", "/vagrant", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-  # Customize the amount of memory on the VM:
-
-  ######################################################################
-  # Add Python Flask environment
-  ######################################################################
-  # Setup a Python development environment
-  config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-    apt-get install -y git python-pip python-dev build-essential
-    pip install flask
-    pip install redis
-    pip install --upgrade pip
-    apt-get -y autoremove
-    # Make vi look nice ;-)
-    sudo -H -u ubuntu echo "colorscheme desert" > ~/.vimrc
-    # Install app dependencies
-    cd /vagrant
-    sudo pip install -r requirements.txt
-  SHELL
-
-  ######################################################################
-  # Add Redis docker container
-  ######################################################################
-  config.vm.provision "shell", inline: <<-SHELL
-    # Prepare Redis data share
-    sudo mkdir -p /var/lib/redis/data
-    sudo chown ubuntu:ubuntu /var/lib/redis/data
-  SHELL
-
-  # Add Redis docker container
-  config.vm.provision "docker" do |d|
-    d.pull_images "redis:alpine"
-    d.run "redis:alpine",
-      args: "--restart=always -d --name redis -h redis -p 6379:6379 -v /var/lib/redis/data:/data"
+  config.vm.provider "virtualbox" do |vb|
+    # Customize the amount of memory on the VM:
+    vb.memory = "512"
+    vb.cpus = 1
+    # Fixes some DNS issues on some networks
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
- 
-  # View the documentation for the provider you are using for more
-  # information on available options.
+  # Copy your .gitconfig file so that your git credentials are correct
+  if File.exists?(File.expand_path("~/.gitconfig"))
+    config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig"
+  end
+
+  # Copy your ssh keys for github so that your git credentials work
+  if File.exists?(File.expand_path("~/.ssh/id_rsa"))
+    config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "~/.ssh/id_rsa"
+  end
+
+  # Copy your .vimrc file so that your VI editor looks right
+  if File.exists?(File.expand_path("~/.vimrc"))
+    config.vm.provision "file", source: "~/.vimrc", destination: "~/.vimrc"
+  end
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    # Python 2
+    apt-get install -y git python-pip python-dev build-essential
+    # Python 3
+    # apt-get install -y git tree python3-dev python3-pip python3-venv
+    apt-get -y autoremove
+    # Install app dependencies
+    cd /vagrant
+    sudo pip install -r requirements.txt
+    cd
+  SHELL
+
+  # ######################################################################
+  # # Add MySQL docker container
+  # ######################################################################
+  # # docker run -d --name mariadb -p 3306:3306 -v mysql_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passw0rd mariadb
+  # config.vm.provision "docker" do |d|
+  #   d.pull_images "mariadb"
+  #   d.run "mariadb",
+  #     args: "--restart=always -d --name mariadb -p 3306:3306 -v mysql_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passw0rd"
+  # end
+
+  ######################################################################
+  # Add PostgreSQL docker container
+  ######################################################################
+  # docker run -d --name postgres -p 5432:5432 -v postgresql_data:/var/lib/postgresql/data postgres
+  config.vm.provision "docker" do |d|
+    d.pull_images "postgres"
+    d.run "postgres",
+       args: "-d --name postgres -p 5432:5432 -v postgresql_data:/var/lib/postgresql/data"
+  end
+
+  # Create the database after Docker is running
+  config.vm.provision "shell", inline: <<-SHELL
+    # Wait for mariadb to come up
+    echo "Waiting 20 seconds for PostgreSQL to start..."
+    sleep 20
+    cd /vagrant
+    docker exec postgres psql -U postgres -c "CREATE DATABASE development;"
+    python manage.py development
+    docker exec postgres psql -U postgres -c "CREATE DATABASE test;"
+    python manage.py test
+    cd
+  SHELL
+
 end
