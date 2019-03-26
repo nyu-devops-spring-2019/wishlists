@@ -1,243 +1,153 @@
-import os
-import json
+# Copyright 2016, 2017 John Rofrano. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the 'License');
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an 'AS IS' BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""
+Models for Wishlist Demo Service
+
+All of the models are stored in this module
+
+Models
+------
+Wishlist - A Wishlist used to save items
+
+Attributes:
+-----------
+name (string) - the name of the wishlist
+customer_id (integer) - the id of the customer
+item_id (integer) - id of the item
+
+"""
 import logging
-from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
+# Create the SQLAlchemy object to be initialized later in init_db()
 db = SQLAlchemy()
 
-
-######################################################################
-# Custom Exceptions
-######################################################################
-class DataValidationError(ValueError):
+class DataValidationError(Exception):
+    """ Used for an data validation errors when deserializing """
     pass
 
-######################################################################
-# Items Model for database
-######################################################################
+class Wishlist(db.Model):
+    """
+    Class that represents a Wishlist
 
-class Item(db.Model):
-    """ Model for an Item """
+    This version uses a relational database for persistence which is hidden
+    from us by SQLAlchemy's object relational mappings (ORM)
+    """
     logger = logging.getLogger(__name__)
     app = None
 
-    __tablename__ = "items"
-    item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    wishlist_id = db.Column(db.Integer, db.ForeignKey('Wishlist.wishlist_id'), nullable=False)
-    product_id = db.Column(db.Integer, nullable=False)
-    item_name = db.Column(db.String(63), nullable=False)
-    item_description = db.Column(db.String(100))
-
-    def __repr__(self):
-        return '<Item %r>' % (self.item_name)
-
-    def save(self):
-        """ Saves an Item to the database """
-        if not self.item_id:
-            db.session.add(self)
-        db.session.commit()
-
-    def delete(self):
-        """ Deletes an Item from the database """
-        if self.item_id:
-            db.session.delete(self)
-        db.session.commit()
-
-    def serialize(self):
-        """
-        Serializes an Item into a dictionary
-        Returns:
-            dict
-        """
-        return {
-                "Item_id": self.item_id,
-                "wishlist_id": self.wishlist_id,
-                "product_id": self.product_id,
-                "item_name": self.item_name,
-                "Item_description": self.item_description
-                }
-
-    def deserialize(self, data, wishlist_id):
-        """
-        Deserializes an Item from a dictionary
-        Args:
-            data (dict): A dictionary containing the Item data
-        Returns:
-            self: instance of Item
-        Raises:
-            DataValidationError: when bad or missing data
-        """
-        try:
-            self.wishlist_id = wishlist_id
-            self.product_id = data['product_id']
-            self.item_name = data['item_name']
-            self.item_description = data['item_description']
-
-        except KeyError as error:
-            raise DataValidationError('Invalid item: missing ' + error.args[0])
-        except TypeError as error:
-            raise DataValidationError('Invalid item: body of request contained ' \
-                                      'bad or no data')
-        return self
-
-    @staticmethod
-    def init_db(app):
-        """ Initializes the database session """
-        Item.logger.info('Initializing database')
-        Item.app = app
-        # This is where we initialize SQLAlchemy from the Flask app
-        db.init_app(app)
-        app.app_context().push()
-        db.create_all()  # make our sqlalchemy tables
-
-    @staticmethod
-    def all():
-        """
-        Fetch all of the Items in the database
-        Returns:
-            List: list of Items
-        """
-        Item.logger.info('Processing all Items')
-        return Item.query.all()
-
-    @staticmethod
-    def get(item_id):
-        """
-        Get an Item by id
-        Args:
-            item_id: primary key of items
-        Returns:
-            Item: item with associated id
-        """
-        Item.logger.info('Processing lookup for id %s ...', item_id)
-        return Item.query.get(item_id)
-
-    @staticmethod
-    def find_by_name(name):
-        """ Return all Items with the given name
-        Args:
-            name (string): the name of the Items you want to match
-        """
-        Item.logger.info('Processing name query for %s ...', name)
-        return Item.query.filter(Item.item_name == name)
-
-    @staticmethod
-    def find_by_wishlist_id(wishlist_id):
-        """ Returns all Items with the given wishlist_id
-        Args:
-            wishlist_id (integer): the wishlist_id associated with a list of items
-        """
-        Item.logger.info('Processing wishlist_id query for %s ...', wishlist_id)
-        return Item.query.filter(Item.wishlist_id == wishlist_id)
-
-
-######################################################################
-# Wishlist Model for database
-######################################################################
-class Wishlist(db.Model):
-    """A single wishlist"""
-    logger = logging.getLogger(__name__)
-
-    __tablename__ = "Wishlist"
     # Table Schema
-    wishlist_id = db.Column(db.Integer, primary_key=True)
-    wishlist_name = db.Column(db.String(63))
-    wishlist_description= db.Column(db.String(63))
-    wishlist_available = db.Column(db.Boolean())
-    wishlist_customer_id = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(63))
+    customer_id = db.Column(db.Integer)
+    item_id = db.Column(db.Integer)
 
     def __repr__(self):
         return '<Wishlist %r>' % (self.name)
 
     def save(self):
-        """ Saves an existing wishlist in the database """
-        # if the id is None it hasn't been added to the database
+        """
+        Saves a Wishlist to the data store
+        """
         if not self.id:
             db.session.add(self)
         db.session.commit()
 
     def delete(self):
-        """ Deletes a Wishlist from the database """
+        """ Removes a Wishlist from the data store """
         db.session.delete(self)
         db.session.commit()
 
     def serialize(self):
-        """ serializes a Wishlist into a dictionary """
-        return {"wishlist_id": self.wishlist_id,
-                "wishlist_name": self.wishlist_name,
-                "wishlist_description": self.wishlist_description,
-                "wishlist_available": self.wishlist_available,
-                "wishlist_customer_id": self.wishlist_customer_id}
+        """ Serializes a Wishlistt into a dictionary """
+        return {"id": self.id,
+                "name": self.name,
+                "customer_id": self.customer_id,
+                "item_id": self.item_id}
 
     def deserialize(self, data):
-        """ deserializes a Wishlist my marshalling the data """
-        try:
-            self.wishlist_name = data['wishlist_name']
-            self.wishlist_description = data['wishlist_description']
-            self.wishlist_available = data['wishlist_available']
-            self.wishlist_customer_id = data['wishlist_customer_id']
+        """
+        Deserializes a Wishlist from a dictionary
 
+        Args:
+            data (dict): A dictionary containing the Wishlist data
+        """
+        try:
+            self.name = data['name']
+            self.customer_id = data['customer_id']
+            self.item_id = data['item_id']
         except KeyError as error:
-            raise DataValidationError('Invalid Wishlist: missing ' + error.args[0])
+            raise DataValidationError('Invalid wishlist: missing ' + error.args[0])
         except TypeError as error:
-            raise DataValidationError('Invalid Wishlist: body of request contained' \
+            raise DataValidationError('Invalid wishlist: body of request contained' \
                                       'bad or no data')
         return self
 
-    @staticmethod
-    def init_db():
+    @classmethod
+    def init_db(cls, app):
         """ Initializes the database session """
-        Wishlist.logger.info('Initializing database')
-	# Wishlist.app = app
+        cls.logger.info('Initializing database')
+        cls.app = app
         # This is where we initialize SQLAlchemy from the Flask app
-        # db.init_app(app)
-        # app.app_context().push()
+        db.init_app(app)
+        app.app_context().push()
         db.create_all()  # make our sqlalchemy tables
 
-    @staticmethod
-    def all():
-        """ Return all of the Wishlists in the database """
-        Wishlist.logger.info('Processing all Wishlists')
-        return Wishlist.query.all()
+    @classmethod
+    def all(cls):
+        """ Returns all of the Wishlists in the database """
+        cls.logger.info('Processing all Wishlists')
+        return cls.query.all()
 
-    @staticmethod
-    def all_sorted():
-        """ Return all of the Wishlists in the database """
-        Wishlist.logger.info('Processing all Wishlists')
-        return Wishlist.query.order_by(Wishlist.wishlist_name.desc()).all()
+    @classmethod
+    def find(cls, wishlist_id):
+        """ Finds a wishlist by it's ID """
+        cls.logger.info('Processing lookup for id %s ...', wishlist_id)
+        return cls.query.get(wishlist_id)
 
-    @staticmethod
-    def get(wishlist_id):
-        """ Find a Wishlist by it's id """
-        Wishlist.logger.info('Processing lookup for id %s ...', wishlist_id)
-        return Wishlist.query.get(wishlist_id)
+    @classmethod
+    def find_or_404(cls, wishlist_id):
+        """ Find a wishlist by it's id """
+        cls.logger.info('Processing lookup or 404 for id %s ...', wishlist_id)
+        return cls.query.get_or_404(wishlist_id)
 
-    @staticmethod
-    def get_or_404(wishlist_id):
-        """ Find a Wishlist by it's id """
-        Wishlist.logger.info('Processing lookup or 404 for id %s ...', wishlist_id)
-        return Wishlist.query.get_or_404(wishlist_id)
+    @classmethod
+    def find_by_name(cls, name):
+        """ Returns all wishlists with the given name
 
-    @staticmethod
-    def find_by_name(wishlist_name):
-        """ Query that finds Wishlists by their name """
-        Wishlist.logger.info('Processing name query for %s ...', wishlist_name)
-        return Wishlist.query.filter(Wishlist.wishlist_name == wishlist_name)
+        Args:
+            name (string): the name of the wishlists you want to match
+        """
+        cls.logger.info('Processing name query for %s ...', name)
+        return cls.query.filter(cls.name == name)
 
-    @staticmethod
-    def clear_db():
-        """Clear database"""
-        # Item.query.delete()
-        # db.session.commit()
-        # Wishlist.query.delete()
-        # db.session.commit()
-        meta = db.metadata
-        for table in reversed(meta.sorted_tables):
-            db.session.execute(table.delete())
-            db.session.commit()
-        #using bluemix and postgresql
-        if 'VCAP_SERVICES' in os.environ:
-            db.session.execute("ALTER SEQUENCE items_id_seq RESTART with 1;")
-            db.session.execute("ALTER SEQUENCE wishlists_id_seq RESTART with 1;")
-            db.session.commit()
+    @classmethod
+    def find_by_item_id(cls, item_id):
+        """ Returns all of the wishlists that contain the item
+
+        Args:
+            item_id (integer): the item_id of the wishlists you want to match
+        """
+        cls.logger.info('Processing item_id query for %s ...', item_id)
+        return cls.query.filter(cls.item_id == item_id)
+
+    @classmethod
+    def find_by_customer_id(cls, customer_id):
+        """ Returns all of the wishlists that contain the customer
+
+        Args:
+            customer_id (integer): the customer_id of the wishlists you want to match
+        """
+        cls.logger.info('Processing customer_id query for %s ...', customer_id)
+        return cls.query.filter(cls.customer_id == customer_id)
