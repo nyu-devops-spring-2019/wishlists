@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'please, tell nobody... Shhhh'
 app.config['LOGGING_LEVEL'] = logging.INFO
 
-api = Api(app)
+# api = Api(app)
 
 from app.resources import WishlistResource
 from app.resources import WishlistCollection
