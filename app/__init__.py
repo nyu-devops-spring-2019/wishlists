@@ -4,18 +4,31 @@ Package: app
 Package for the application models and services
 This module also sets up the logging to be used with gunicorn
 """
+import os
+import sys
 import logging
 from flask import Flask
+from flask_restful import Api 
+from .models import Wishlist, DataValidationError
 
 # Create Flask application
 app = Flask(__name__)
-# We'll just use SQLite here so we don't need an external database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../db/development.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'please, tell nobody... Shhhh'
 app.config['LOGGING_LEVEL'] = logging.INFO
 
-import server
+api = Api(app)
+
+from app.resources import WishlistResource
+from app.resources import WishlistCollection
+from app.resources import HomePage
+from app.resources import PurchaseAction
+
+
+api.add_resource(HomePage, '/')
+api.add_resource(WishlistCollection, '/wishlists')
+api.add_resource(WishlistResource, '/wishlists/<wishlist_id>')
+api.add_resource(PurchaseAction, 'wishlists/<wishlist_id>/purchase')
+
 
 # Set up logging for production
 print 'Setting up logging for {}...'.format(__name__)
@@ -24,8 +37,14 @@ if __name__ != '__main__':
     if gunicorn_logger:
         app.logger.handlers = gunicorn_logger.handlers
         app.logger.setLevel(gunicorn_logger.level)
-    else:
-        server.initialize_logging()
-    server.init_db()  # make our sqlalchemy tables
 
+app.logger.info('************************************************************')
+app.logger.info('        P E T   R E S T   A P I   S E R V I C E ')
+app.logger.info('************************************************************')
 app.logger.info('Logging established')
+
+
+@app.before_first_request
+def init_db(dbname="pets"):
+    """ Initlaize the model """
+    Pet.init_db(dbname)
