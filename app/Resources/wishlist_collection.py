@@ -5,8 +5,8 @@ from flask import request, abort
 from flask_restful import Resource
 from flask_api import status    # HTTP Status Codes
 from werkzeug.exceptions import BadRequest
-from service import app, api
-from service.models import Wishlist, DataValidationError
+from app import app, api
+from app.models import Wishlist, DataValidationError
 from . import WishlistResource
 
 class WishlistCollection(Resource):

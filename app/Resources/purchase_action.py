@@ -4,7 +4,7 @@ This module contains routes without Resources
 from flask import abort
 from flask_api import status
 from flask_restful import Resource
-from service.models import Wishlist
+from app.models import Wishlist
 
 ######################################################################
 # PURCHASE A WISHLIST
