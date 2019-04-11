@@ -39,12 +39,12 @@ if __name__ != '__main__':
         app.logger.setLevel(gunicorn_logger.level)
 
 app.logger.info('************************************************************')
-app.logger.info('        P E T   R E S T   A P I   S E R V I C E ')
+app.logger.info('        W I S H L I S T   R E S T   A P I   S E R V I C E ')
 app.logger.info('************************************************************')
 app.logger.info('Logging established')
 
 
 @app.before_first_request
-def init_db(dbname="pets"):
+def init_db(dbname="wishlists"):
     """ Initlaize the model """
-    Pet.init_db(dbname)
+    Wishlist.init_db(dbname)
