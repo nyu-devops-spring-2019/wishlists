@@ -13,152 +13,239 @@
 # limitations under the License.
 
 """
-Wishlist API server Test Suite
+Wishlist API Service Test Suite
 
 Test cases can be run with the following:
-  nosetests -v --with-spec --spec-color
-  coverage report -m
-  codecov --token=$CODECOV_TOKEN
+nosetests -v --with-spec --spec-color
 """
-
 import unittest
-import os
-import logging
-from flask_api import status    # HTTP Status Codes
-#from mock import MagicMock, patch
-from app.models import Wishlist, DataValidationError, db
-from .wishlist_factory import WishlistFactory
-import app.server as server
+import json
+from werkzeug.datastructures import MultiDict, ImmutableMultiDict
+from app import app
+from app.models import Wishlist
 
-DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:///../db/test.db')
+# Status Codes
+HTTP_200_OK = 200
+HTTP_201_CREATED = 201
+HTTP_204_NO_CONTENT = 204
+HTTP_400_BAD_REQUEST = 400
+HTTP_404_NOT_FOUND = 404
+HTTP_405_METHOD_NOT_ALLOWED = 405
+HTTP_409_CONFLICT = 409
 
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
 class TestWishlistServer(unittest.TestCase):
-    """ Wishlist Server Tests """
-
-    @classmethod
-    def setUpClass(cls):
-        """ Run once before all tests """
-        server.app.debug = False
-        server.initialize_logging(logging.INFO)
-        # Set up the test database
-        server.app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-
-    @classmethod
-    def tearDownClass(cls):
-        pass
+    """ Wishlist Service tests """
 
     def setUp(self):
-        """ Runs before each test """
-        server.init_db()
-        db.drop_all()    # clean up the last tests
-        db.create_all()  # create new tables
-        self.app = server.app.test_client()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-
-    def _create_wishlists(self, count):
-        """ Factory method to create pets in bulk """
-        wishlists = []
-        for _ in range(count):
-            test_wishlist = WishlistFactory()
-            resp = self.app.post('/wishlists',
-                                 json=test_wishlist.serialize(),
-                                 content_type='application/json')
-            self.assertEqual(resp.status_code, status.HTTP_201_CREATED, 'Could not create test wishlist')
-            new_wishlist = resp.get_json()
-            test_wishlist.id = new_wishlist['id']
-            wishlists.append(test_wishlist)
-        return wishlists
+        """ Initialize the Cloudant database """
+        self.app = app.test_client()
+        Wishlist.init_db("tests")
+        Wishlist.remove_all()
+        Wishlist("Shoecollection", "Jim").save()
+        Wishlist("Bags to buy", "Tiffany").save()
+        Wishlist("Summer outfit", "Jacky").save()
 
     def test_index(self):
-        """ Test the Home Page """
+        """ Test the index page """
         resp = self.app.get('/')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        data = resp.get_json()
-        self.assertEqual(data['name'], 'Wishlist Demo REST API Service')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        self.assertIn('Wishlist Demo REST API Service', resp.data)
 
-    def test_get_pet_list(self):
+    def test_get_wishlist_list(self):
         """ Get a list of Wishlists """
-        self._create_wishlists(5)
         resp = self.app.get('/wishlists')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        data = resp.get_json()
-        self.assertEqual(len(data), 5)
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        self.assertTrue(len(resp.data) > 0)
 
     def test_get_wishlist(self):
-        """ Get a single Wishlist """
-        # get the id of a pet
-        test_wishlist = self._create_wishlists(1)[0]
-        resp = self.app.get('/wishlists/{}'.format(test_wishlist.id),
-                            content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        data = resp.get_json()
-        self.assertEqual(data['name'], test_wishlist.name)
+        """ get a single Wishlist """
+        wishlist = self.get_wishlist('Summer outfit')[0] # returns a list
+        resp = self.app.get('/wishlists/{}'.format(wishlist['_id']))
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        data = json.loads(resp.data)
+        self.assertEqual(data['name'], 'Summer outfit')
 
     def test_get_wishlist_not_found(self):
-        """ Get a wishlist thats not found """
+        """ Get a Wishlist that doesn't exist """
         resp = self.app.get('/wishlists/0')
-        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(resp.status_code, HTTP_404_NOT_FOUND)
+        data = json.loads(resp.data)
+        self.assertIn('was not found', data['message'])
 
     def test_create_wishlist(self):
-        """ Create a new wishlist """
-        test_wishlist = WishlistFactory()
-        resp = self.app.post('/wishlists',
-                             json=test_wishlist.serialize(),
-                             content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+        """ Create a new Wishlist """
+        # save the current number of wishlists for later comparrison
+        wishlist_count = self.get_wishlist_count()
+        # add a new wishlist
+        new_wishlist = {'name': 'Bags', 'customer_id': '1'}
+        data = json.dumps(new_wishlist)
+        resp = self.app.post('/wishlists', data=data, content_type='application/json')
+        # if resp.status_code == 429: # rate limit exceeded
+        #     sleep(1)                # wait for 1 second and try again
+        #     resp = self.app.post('/wishlists', data=data, content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_201_CREATED)
         # Make sure location header is set
         location = resp.headers.get('Location', None)
-        self.assertTrue(location != None)
+        self.assertNotEqual(location, None)
         # Check the data is correct
-        new_wishlist = resp.get_json()
-        self.assertEqual(new_wishlist['name'], test_wishlist.name, "Names do not match")
-        self.assertEqual(new_wishlist['customer_id'], test_wishlist.customer_id, "CustomerIDs do not match")
+        new_json = json.loads(resp.data)
+        self.assertEqual(new_json['name'], 'Bags')
+        # check that count has gone up and includes Bags
+        resp = self.app.get('/wishlists')
+        data = json.loads(resp.data)
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        self.assertEqual(len(data), wishlist_count + 1)
+        self.assertIn(new_json, data)
 
-        # Check that the location header was correct
-        resp = self.app.get(location,
+    def test_create_wishlist_from_formdata(self):
+        wishlist_data = MultiDict()
+        wishlist_data.add('name', 'Shoes')
+        wishlist_data.add('customer_id', '3')
+        data = ImmutableMultiDict(wishlist_data)
+        resp = self.app.post('/wishlists', data=data, content_type='application/x-www-form-urlencoded')
+        self.assertEqual(resp.status_code, HTTP_201_CREATED)
+        # Make sure location header is set
+        location = resp.headers.get('Location', None)
+        self.assertNotEqual(location, None)
+        # Check the data is correct
+        new_json = json.loads(resp.data)
+        self.assertEqual(new_json['name'], 'Shoes')
+
+    def test_update_wishlist(self):
+        """ Update a Wishlist """
+        wishlist = self.get_wishlist('Bags')[0] # returns a list
+        self.assertEqual(wishlist['customer_id'], '4')
+        wishlist['customer_id'] = '4'
+        # make the call
+        data = json.dumps(wishlist)
+        resp = self.app.put('/wishlists/{}'.format(wishlist['_id']), data=data,
                             content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        new_wishlist = resp.get_json()
-        self.assertEqual(new_wishlist['name'], test_wishlist.name, "Names do not match")
-        self.assertEqual(new_wishlist['customer_id'], test_wishlist.customer_id, "CustomerIDs do not match")
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        # go back and get it again
+        resp = self.app.get('/wishlists/{}'.format(wishlist['_id']), content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        new_json = json.loads(resp.data)
+        self.assertEqual(new_json['customer_id'], '4')
 
-    def test_update_wishlistt(self):
-        """ Update an existing wishlistt """
-        # create a wishlist to update
-        test_wishlist = WishlistFactory()
-        resp = self.app.post('/wishlists',
-                             json=test_wishlist.serialize(),
-                             content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
-
-        # update the pet
-        new_wishlist = resp.get_json()
-        new_wishlist['item_id'] = 23
-        resp = self.app.put('/wishlists/{}'.format(new_wishlist['id']),
-                            json=new_wishlist,
+    def test_update_wishlist_with_no_name(self):
+        """ Update a Wishlist without assigning a name """
+        wishlist = self.get_wishlist('fido')[0] # returns a list
+        del wishlist['name']
+        data = json.dumps(wishlist)
+        resp = self.app.put('/wishlists/{}'.format(wishlist['_id']), data=data,
                             content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        updated_wishlist = resp.get_json()
-        self.assertEqual(updated_wishlist['item_id'], 23)
+        self.assertEqual(resp.status_code, HTTP_400_BAD_REQUEST)
+
+    def test_update_wishlist_not_found(self):
+        """ Update a Wishlist that doesn't exist """
+        new_bag = {"name": "Bags", "customer_id": "6"}
+        data = json.dumps(new_bag)
+        resp = self.app.put('/wishlists/0', data=data, content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_404_NOT_FOUND)
 
     def test_delete_wishlist(self):
-        """ Delete a wishlist """
-        test_wishlist = self._create_wishlists(1)[0]
-        resp = self.app.delete('/wishlists/{}'.format(test_wishlist.id),
-                               content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+        """ Delete a Wishlist """
+        wishlist = self.get_wishlist('fido')[0] # returns a list
+        # save the current number of wishlists for later comparrison
+        wishlist_count = self.get_wishlist_count()
+        # delete a wishlist
+        resp = self.app.delete('/wishlists/{}'.format(wishlist['_id']), content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_204_NO_CONTENT)
         self.assertEqual(len(resp.data), 0)
-        # make sure they are deleted
-        resp = self.app.get('/wishlists/{}'.format(test_wishlist.id),
-                            content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+        new_count = self.get_wishlist_count()
+        self.assertEqual(new_count, wishlist_count - 1)
 
+    def test_create_wishlist_with_no_name(self):
+        """ Create a Wishlist without a name """
+        new_wishlist = {'customer_id': '9'}
+        data = json.dumps(new_wishlist)
+        resp = self.app.post('/wishlists', data=data, content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_400_BAD_REQUEST)
+
+    def test_create_wishlist_no_content_type(self):
+        """ Create a Wishlist with no Content-Type """
+        new_wishlist = {'name': 'Bags', 'customer_id': '11'}
+        data = json.dumps(new_wishlist)
+        resp = self.app.post('/wishlists', data=data)
+        self.assertEqual(resp.status_code, HTTP_400_BAD_REQUEST)
+
+    def test_create_wishlist_wrong_content_type(self):
+        """ Create a Wishlist with wrong Content-Type """
+        data = "jimmy the fish"
+        resp = self.app.post('/wishlists', data=data, content_type='plain/text')
+        self.assertEqual(resp.status_code, HTTP_400_BAD_REQUEST)
+
+    def test_call_create_with_an_id(self):
+        """ Call create passing an id """
+        new_wishlist = {'name': 'Bags', 'customer_id': '5'}
+        data = json.dumps(new_wishlist)
+        resp = self.app.post('/wishlists/1', data=data)
+        self.assertEqual(resp.status_code, HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_query_by_name(self):
+        """ Query Wishlist by name """
+        resp = self.app.get('/wishlists', query_string='name=fido')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        self.assertTrue(len(resp.data) > 0)
+        self.assertIn('fido', resp.data)
+        self.assertNotIn('Bags', resp.data)
+        data = json.loads(resp.data)
+        query_item = data[0]
+        self.assertEqual(query_item['name'], 'fido')
+
+    def test_query_by_customer_id(self):
+        """ Query Wishlists by customer_id """
+        resp = self.app.get('/wishlists', query_string='customer_id=1')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        self.assertTrue(len(resp.data) > 0)
+        self.assertIn('fido', resp.data)
+        self.assertNotIn('kitty', resp.data)
+        data = json.loads(resp.data)
+        query_item = data[0]
+        self.assertEqual(query_item['customer_id'], '1')
+
+
+    def test_purchase_a_wishlist(self):
+        """ Purchase a wishlist """
+        wishlist = self.get_wishlist('fido')[0] # returns a list
+        resp = self.app.put('/wishlists/{}/purchase'.format(wishlist['_id']), content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        resp = self.app.get('/wishlists/{}'.format(wishlist['_id']), content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        wishlist_data = json.loads(resp.data)
+
+    def test_purchase_not_available(self):
+        """ Purchase a wishlist that is not available """
+        wishlist = self.get_wishlist('Bags')[0]
+        resp = self.app.put('/wishlists/{}/purchase'.format(wishlist['_id']), content_type='application/json')
+        self.assertEqual(resp.status_code, HTTP_400_BAD_REQUEST)
+        resp_json = json.loads(resp.get_data())
+        self.assertIn('not available', resp_json['message'])
+
+
+######################################################################
+# Utility functions
+######################################################################
+
+    def get_wishlist(self, name):
+        """ retrieves a wishlist for use in other actions """
+        resp = self.app.get('/wishlists',
+                            query_string='name={}'.format(name))
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        self.assertGreater(len(resp.data), 0)
+        self.assertIn(name, resp.data)
+        data = json.loads(resp.data)
+        return data
+
+    def get_wishlist_count(self):
+        """ save the current number of wishlists """
+        resp = self.app.get('/wishlists')
+        self.assertEqual(resp.status_code, HTTP_200_OK)
+        data = json.loads(resp.data)
+        return len(data)
 
 
 ######################################################################
