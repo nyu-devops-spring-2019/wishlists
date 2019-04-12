@@ -123,7 +123,7 @@ class TestWishlists(unittest.TestCase):
 
     def test_deserialize_with_no_name(self):
         """ Deserialize a Wishlist that has no name """
-        data = {"id":0, "customer_id: "2"}
+        data = {"id":0, "customer_id: '2'}
         wishlist = Wishlist()
         self.assertRaises(DataValidationError, wishlist.deserialize, data)
 

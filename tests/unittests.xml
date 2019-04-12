@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="3" errors="3" failures="0" skip="0"><testcase classname="nose.failure.Failure" name="runTest" time="0.002"><error type="exceptions.ImportError" message="cannot import name api"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 329, in run
+    testMethod()
+  File "/usr/local/lib/python2.7/dist-packages/nose/loader.py", line 418, in loadTestsFromName
+    addr.filename, addr.module)
+  File "/usr/local/lib/python2.7/dist-packages/nose/importer.py", line 47, in importFromPath
+    return self.importFromDir(dir_path, fqname)
+  File "/usr/local/lib/python2.7/dist-packages/nose/importer.py", line 94, in importFromDir
+    mod = load_module(part_fqname, fh, filename, desc)
+  File "/vagrant/app/__init__.py", line 21, in <module>
+    from app.resources import WishlistResource
+  File "/vagrant/app/resources/__init__.py", line 4, in <module>
+    from .wishlist_resource import WishlistResource
+  File "/vagrant/app/resources/wishlist_resource.py", line 8, in <module>
+    from app import app, api
+ImportError: cannot import name api
+]]></error></testcase><testcase classname="nose.failure.Failure" name="runTest" time="0.000"><error type="exceptions.ImportError" message="cannot import name api"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 329, in run
+    testMethod()
+  File "/usr/local/lib/python2.7/dist-packages/nose/loader.py", line 418, in loadTestsFromName
+    addr.filename, addr.module)
+  File "/usr/local/lib/python2.7/dist-packages/nose/importer.py", line 47, in importFromPath
+    return self.importFromDir(dir_path, fqname)
+  File "/usr/local/lib/python2.7/dist-packages/nose/importer.py", line 94, in importFromDir
+    mod = load_module(part_fqname, fh, filename, desc)
+  File "/vagrant/tests/test_server.py", line 24, in <module>
+    from app import app
+  File "/vagrant/app/__init__.py", line 21, in <module>
+    from app.resources import WishlistResource
+  File "/vagrant/app/resources/__init__.py", line 4, in <module>
+    from .wishlist_resource import WishlistResource
+  File "/vagrant/app/resources/wishlist_resource.py", line 8, in <module>
+    from app import app, api
+ImportError: cannot import name api
+]]></error></testcase><testcase classname="nose.failure.Failure" name="runTest" time="0.000"><error type="exceptions.SyntaxError" message="invalid syntax (test_wishlists.py, line 126)"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 329, in run
+    testMethod()
+  File "/usr/local/lib/python2.7/dist-packages/nose/loader.py", line 418, in loadTestsFromName
+    addr.filename, addr.module)
+  File "/usr/local/lib/python2.7/dist-packages/nose/importer.py", line 47, in importFromPath
+    return self.importFromDir(dir_path, fqname)
+  File "/usr/local/lib/python2.7/dist-packages/nose/importer.py", line 94, in importFromDir
+    mod = load_module(part_fqname, fh, filename, desc)
+  File "/vagrant/tests/test_wishlists.py", line 126
+    data = {"id":0, "customer_id: "2"}
+                                   ^
+SyntaxError: invalid syntax
+]]></error></testcase></testsuite>
