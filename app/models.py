@@ -56,7 +56,7 @@ class Wishlist(object):
     client = None   # cloudant.client.Cloudant
     database = None # cloudant.database.CloudantDatabase
 
-    def __init__(self, name=None, category=None, available=True):
+    def __init__(self, name=None, customer_id=None):
         """ Constructor """
         self.id = None
         self.name = name
@@ -244,8 +244,8 @@ class Wishlist(object):
                 "username": CLOUDANT_USERNAME,
                 "password": CLOUDANT_PASSWORD,
                 "host": CLOUDANT_HOST,
-                "port": 5984,
-                "url": "http://"+CLOUDANT_HOST+":5984/"
+                "port": 0000,
+                "url": "http://"+CLOUDANT_HOST+":0000/"
             }
             vcap_services = {"cloudantNoSQLDB": [{"credentials": creds}]}
 

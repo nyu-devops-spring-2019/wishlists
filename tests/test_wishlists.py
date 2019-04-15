@@ -29,15 +29,16 @@ from app.models import Wishlist, DataValidationError
 VCAP_SERVICES = {
     'cloudantNoSQLDB': [
         {'credentials': {
-            'username': 'admin',
-            'password': 'pass',
-            'host': 'localhost',
-            'port': 5984,
-            'url': 'http://admin:pass@localhost:5984'
+            'username': "f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix",
+            'password': "8dcb32b25406ea099e7f33bf54cb26f2867a1b5ae0804ad33490ab3bd8bfc255",
+            'host': "f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix.cloudantnosqldb.appdomain.cloud",
+            'port': 443,
+            'url': "https://f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix:8dcb32b25406ea099e7f33bf54cb26f2867a1b5ae0804ad33490ab3bd8bfc255@f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix.cloudantnosqldb.appdomain.cloud"
             }
         }
     ]
 }
+
 
 ######################################################################
 #  T E S T   C A S E S
@@ -123,7 +124,7 @@ class TestWishlists(unittest.TestCase):
 
     def test_deserialize_with_no_name(self):
         """ Deserialize a Wishlist that has no name """
-        data = {"id":0, "customer_id: '2'}
+        data = {"id":0, "customer_id":"2"}
         wishlist = Wishlist()
         self.assertRaises(DataValidationError, wishlist.deserialize, data)
 

@@ -21,13 +21,13 @@ api = Api(app)
 from app.resources import WishlistResource
 from app.resources import WishlistCollection
 from app.resources import HomePage
-from app.resources import PurchaseAction
+#from app.resources import PurchaseAction
 
 
 api.add_resource(HomePage, '/')
 api.add_resource(WishlistCollection, '/wishlists')
 api.add_resource(WishlistResource, '/wishlists/<wishlist_id>')
-api.add_resource(PurchaseAction, 'wishlists/<wishlist_id>/purchase')
+#api.add_resource(PurchaseAction, 'wishlists/<wishlist_id>/purchase')
 
 
 # Set up logging for production
