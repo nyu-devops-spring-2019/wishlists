@@ -18,9 +18,9 @@ app.config['LOGGING_LEVEL'] = logging.INFO
 
 api = Api(app)
 
-from app.resources import WishlistResource
-from app.resources import WishlistCollection
-from app.resources import HomePage
+from service.resources import WishlistResource
+from service.resources import WishlistCollection
+from service.resources import HomePage
 #from app.resources import PurchaseAction
 
 

@@ -2,7 +2,7 @@
 This module contains routes without Resources
 """
 from flask_restful import Resource
-from app import app
+from service import app
 
 ######################################################################
 # GET /

@@ -244,8 +244,8 @@ class Wishlist(object):
                 "username": CLOUDANT_USERNAME,
                 "password": CLOUDANT_PASSWORD,
                 "host": CLOUDANT_HOST,
-                "port": 0000,
-                "url": "http://"+CLOUDANT_HOST+":0000/"
+                "port": 5984,
+                "url": "http://"+CLOUDANT_HOST+":5984/"
             }
             vcap_services = {"cloudantNoSQLDB": [{"credentials": creds}]}
 

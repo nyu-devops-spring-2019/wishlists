@@ -21,8 +21,8 @@ nosetests -v --with-spec --spec-color
 import unittest
 import json
 from werkzeug.datastructures import MultiDict, ImmutableMultiDict
-from app import app
-from app.models import Wishlist
+from service import app
+from service.models import Wishlist
 
 # Status Codes
 HTTP_200_OK = 200
@@ -44,9 +44,9 @@ class TestWishlistServer(unittest.TestCase):
         self.app = app.test_client()
         Wishlist.init_db("tests")
         Wishlist.remove_all()
-        Wishlist("Shoecollection", "Jim").save()
-        Wishlist("Bags to buy", "Tiffany").save()
-        Wishlist("Summer outfit", "Jacky").save()
+        Wishlist("fido", "1").save()
+        Wishlist("Bags to buy", "2").save()
+        Wishlist("Summer outfit", "3").save()
 
     def test_index(self):
         """ Test the index page """
@@ -99,10 +99,10 @@ class TestWishlistServer(unittest.TestCase):
         self.assertEqual(resp.status_code, HTTP_200_OK)
         self.assertEqual(len(data), wishlist_count + 1)
         self.assertIn(new_json, data)
-
+    
     def test_create_wishlist_from_formdata(self):
         wishlist_data = MultiDict()
-        wishlist_data.add('name', 'Shoes')
+        wishlist_data.add('name', 'Timothy')
         wishlist_data.add('customer_id', '3')
         data = ImmutableMultiDict(wishlist_data)
         resp = self.app.post('/wishlists', data=data, content_type='application/x-www-form-urlencoded')
@@ -112,12 +112,12 @@ class TestWishlistServer(unittest.TestCase):
         self.assertNotEqual(location, None)
         # Check the data is correct
         new_json = json.loads(resp.data)
-        self.assertEqual(new_json['name'], 'Shoes')
+        self.assertEqual(new_json['name'], 'Timothy')
 
     def test_update_wishlist(self):
         """ Update a Wishlist """
-        wishlist = self.get_wishlist('Bags')[0] # returns a list
-        self.assertEqual(wishlist['customer_id'], '4')
+        wishlist = self.get_wishlist('fido')[0] # returns a list
+        self.assertEqual(wishlist['customer_id'], '1')
         wishlist['customer_id'] = '4'
         # make the call
         data = json.dumps(wishlist)
@@ -206,24 +206,6 @@ class TestWishlistServer(unittest.TestCase):
         data = json.loads(resp.data)
         query_item = data[0]
         self.assertEqual(query_item['customer_id'], '1')
-
-
-    def test_purchase_a_wishlist(self):
-        """ Purchase a wishlist """
-        wishlist = self.get_wishlist('fido')[0] # returns a list
-        resp = self.app.put('/wishlists/{}/purchase'.format(wishlist['_id']), content_type='application/json')
-        self.assertEqual(resp.status_code, HTTP_200_OK)
-        resp = self.app.get('/wishlists/{}'.format(wishlist['_id']), content_type='application/json')
-        self.assertEqual(resp.status_code, HTTP_200_OK)
-        wishlist_data = json.loads(resp.data)
-
-    def test_purchase_not_available(self):
-        """ Purchase a wishlist that is not available """
-        wishlist = self.get_wishlist('Bags')[0]
-        resp = self.app.put('/wishlists/{}/purchase'.format(wishlist['_id']), content_type='application/json')
-        self.assertEqual(resp.status_code, HTTP_400_BAD_REQUEST)
-        resp_json = json.loads(resp.get_data())
-        self.assertIn('not available', resp_json['message'])
 
 
 ######################################################################

@@ -5,8 +5,8 @@ from flask import request, abort
 from flask_restful import Resource
 from flask_api import status    # HTTP Status Codes
 from werkzeug.exceptions import BadRequest
-from app import app, api
-from app.models import Wishlist, DataValidationError
+from service import app, api
+from service.models import Wishlist, DataValidationError
 from . import WishlistResource
 
 class WishlistCollection(Resource):
@@ -56,7 +56,6 @@ class WishlistCollection(Resource):
             data = {
                 'name': request.form['name'],
                 'customer_id': request.form['customer_id'],
-                'item_id': request.form['item_id']
             }
         elif content_type == 'application/json':
             app.logger.info('Processing JSON data')

@@ -24,20 +24,8 @@ nosetests -v --with-spec --spec-color
 import unittest
 from mock import MagicMock, patch
 from requests import HTTPError, ConnectionError
-from app.models import Wishlist, DataValidationError
+from service.models import Wishlist, DataValidationError
 
-VCAP_SERVICES = {
-    'cloudantNoSQLDB': [
-        {'credentials': {
-            'username': "f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix",
-            'password': "8dcb32b25406ea099e7f33bf54cb26f2867a1b5ae0804ad33490ab3bd8bfc255",
-            'host': "f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix.cloudantnosqldb.appdomain.cloud",
-            'port': 443,
-            'url': "https://f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix:8dcb32b25406ea099e7f33bf54cb26f2867a1b5ae0804ad33490ab3bd8bfc255@f43e6b55-71e6-4e09-b29c-8db76444b843-bluemix.cloudantnosqldb.appdomain.cloud"
-            }
-        }
-    ]
-}
 
 
 ######################################################################
@@ -78,7 +66,7 @@ class TestWishlists(unittest.TestCase):
 
     def test_update_a_wishlist(self):
         """ Update a Wishlist """
-        wishlist = Wishlsit("fido", "1")
+        wishlist = Wishlist("fido", "1")
         wishlist.save()
         self.assertNotEqual(wishlist.id, None)
         # Change it an save it
