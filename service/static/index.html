@@ -18,7 +18,11 @@
 				<p class='description'>
 				GET <a href="/wishlists" id = "get_wishlists">/wishlists</a> to see all the wishlists.
 				<br><br>
-				GET /wishlists/{id} retrieves a wishlist from the DB using an ID.
+        GET /wishlists?name=Shoes retrieves a wishlist from the DB using name. Shoes in this case
+        <br><br>
+				GET /wishlists?customer_id=3 retrieves a wishlist from the DB using customer_id
+        <br><br>
+        GET /wishlists/id retrieves a wishlist from the DB using db id
 				<br><br>
 				PUT /wishlists/{id} updates a wishlists using an ID.
 				<br><br>

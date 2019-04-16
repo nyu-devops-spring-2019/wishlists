@@ -18,16 +18,12 @@ class WishlistCollection(Resource):
         wishlists = []
         name = request.args.get('name')
         customer_id = request.args.get('customer_id')
-        item_id = request.args.get('item_id')
         if customer_id:
             app.logger.info('Filtering by customer_id: %s', customer_id)
             wishlists = Wishlist.find_by_customer_id(customer_id)
         elif name:
             app.logger.info('Filtering by name:%s', name)
             wishlists = Wishlist.find_by_name(name)
-        elif item_id:
-            app.logger.info('Filtering by item_id: %s', item_id)
-            wishlists = Wishlist.find_by_item_id(item_id)
         else:
             wishlists = Wishlist.all()
 
