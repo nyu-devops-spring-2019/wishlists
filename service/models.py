@@ -71,12 +71,14 @@ class Wishlist(object):
             raise DataValidationError('name attribute is not set')
 
         try:
+
             document = self.database.create_document(self.serialize())
         except HTTPError as err:
             Wishlist.logger.warning('Create failed: %s', err)
             return
 
         if document.exists():
+            print(document['_id'])
             self.id = document['_id']
 
     @retry(HTTPError, delay=1, backoff=2, tries=5)
@@ -119,7 +121,7 @@ class Wishlist(object):
             "customer_id": self.customer_id
         }
         if self.id:
-            wishlist['_id'] = self.id
+            wishlist['id'] = self.id
         return wishlist
 
     def deserialize(self, data):
