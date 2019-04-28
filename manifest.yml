@@ -15,5 +15,5 @@ applications:
   services:
   - Cloudant
   env:
-    FLASK_APP : server
+    FLASK_APP : app:app
     FLASK_DEBUG : false

@@ -1,10 +1,12 @@
 from os import getenv
+import logging
 import json
 import requests
 from behave import *
 from compare import expect, ensure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions
 
 WAIT_SECONDS = int(getenv('WAIT_SECONDS', '30'))
@@ -47,6 +49,37 @@ def step_impl(context, element_name, text_string):
     element.clear()
     element.send_keys(text_string)
 
+@then('the "{element_name}" field should be empty')
+def step_impl(context, element_name):
+    element_id = 'wishlist_' + element_name.lower()
+    element = context.driver.find_element_by_id(element_id)
+    expect(element.get_attribute('value')).to_be(u'')
+
+
+##################################################################
+# These two function simulate copy and paste
+##################################################################
+@when('I copy the "{element_name}" field')
+def step_impl(context, element_name):
+    element_id = 'wishlist_' + element_name.lower()
+    element = context.driver.find_element_by_id(element_id)
+    # element = WebDriverWait(context.driver, WAIT_SECONDS).until(
+    #     expected_conditions.presence_of_element_located((By.ID, element_id))
+    # )
+    context.clipboard = element.get_attribute('value')
+    logging.info('Clipboard contains: %s', context.clipboard)
+
+@when('I paste the "{element_name}" field')
+def step_impl(context, element_name):
+    element_id = 'wishlist_' + element_name.lower()
+    element = context.driver.find_element_by_id(element_id)
+    # element = WebDriverWait(context.driver, WAIT_SECONDS).until(
+    #     expected_conditions.presence_of_element_located((By.ID, element_id))
+    # )
+    element.clear()
+    element.send_keys(context.clipboard)
+
+
 @when('I press the "{button}" button')
 def step_impl(context, button):
     button_id = button.lower() + '-btn'
@@ -65,8 +98,15 @@ def step_impl(context, name):
 
 @then('I should see the message "{message}"')
 def step_impl(context, message):
-    element = context.driver.find_element_by_id('flash_message')
-    expect(element.text).to_contain(message)
+    # element = context.driver.find_element_by_id('flash_message')
+    # expect(element.text).to_contain(message)
+    found = WebDriverWait(context.driver, WAIT_SECONDS).until(
+        expected_conditions.text_to_be_present_in_element(
+            (By.ID, 'flash_message'),
+            message
+        )
+    )
+    expect(found).to_be(True)   
 
 @then('I should see "{text_string}" in the "{element_name}" field')
 def step_impl(context, text_string, element_name):
