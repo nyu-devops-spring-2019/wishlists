@@ -1,575 +1,145 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="41" errors="41" failures="0" skip="0"><testcase classname="tests.test_server.TestWishlistServer" name="test_call_create_with_an_id" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_create_wishlist" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_create_wishlist_from_formdata" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_create_wishlist_no_content_type" time="0.021"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_create_wishlist_with_no_name" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_create_wishlist_wrong_content_type" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_delete_wishlist" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_get_wishlist" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_get_wishlist_list" time="0.019"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_get_wishlist_not_found" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_index" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_purchase_a_wishlist" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_purchase_not_available" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_query_by_customer_id" time="0.023"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_query_by_name" time="0.021"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_update_wishlist" time="0.021"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_update_wishlist_not_found" time="0.019"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_server.TestWishlistServer" name="test_update_wishlist_with_no_name" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//tests"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_server.py", line 45, in setUp
-    Wishlist.init_db("tests")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//tests
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_add_a_wishlist" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_connection_error" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_create_a_wishlist" time="0.016"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_create_a_wishlist_with_no_name" time="0.015"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_create_query_index" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_delete_a_wishlist" time="0.016"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_deserialize_a_wishlist" time="0.015"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_deserialize_with_bad_data" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_deserialize_with_no_data" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_deserialize_with_no_name" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_disconnect" time="0.016"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_document_not_exist" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_find_by_customer_id" time="0.016"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_find_by_name" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_find_wishlist" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_find_with_no_wishlists" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_http_error" time="0.018"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_key_error_on_delete" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_key_error_on_update" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_save_a_wishlist_with_no_name" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_serialize_a_wishlist" time="0.021"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_update_a_wishlist" time="0.020"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase><testcase classname="tests.test_wishlists.TestWishlists" name="test_wishlist_not_found" time="0.017"><error type="requests.exceptions.HTTPError" message="500 Server Error: Internal Server Error for url: http://localhost:5984//test"><![CDATA[Traceback (most recent call last):
-  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
-    self.setUp()
-  File "/vagrant/tests/test_wishlists.py", line 50, in setUp
-    Wishlist.init_db("test")
-  File "/vagrant/app/models.py", line 283, in init_db
-    Wishlist.database = Wishlist.client[dbname]
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/client.py", line 389, in __getitem__
-    if db.exists():
-  File "/usr/local/lib/python2.7/dist-packages/cloudant/database.py", line 116, in exists
-    resp.raise_for_status()
-  File "/usr/local/lib/python2.7/dist-packages/requests/models.py", line 940, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:5984//test
-]]></error></testcase></testsuite>
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="39" errors="0" failures="0" skip="0"><testcase classname="test_server.TestWishlistServer" name="test_call_create_with_an_id" time="0.086"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:30,852] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1a419c
+87024f72df04bb04ae54e7359f1a484d
+[2019-04-28 03:33:30,933] ERROR in error_handlers: 405 Method Not Allowed: The method is not allowed for the requested URL.
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_create_wishlist" time="0.080"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:30,936] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1a51fa
+87024f72df04bb04ae54e7359f1a527b
+[2019-04-28 03:33:30,991] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:30,991] INFO in server: Find all
+[2019-04-28 03:33:30,996] INFO in server: [2] Wishlists returned
+[2019-04-28 03:33:30,998] INFO in server: Request to Create a Wishlist...
+[2019-04-28 03:33:30,998] INFO in server: Getting json data from API call
+[2019-04-28 03:33:30,998] INFO in server: {u'customer_id': u'1', u'name': u'Bags'}
+87024f72df04bb04ae54e7359f1a5fee
+[2019-04-28 03:33:31,008] INFO in server: Wishlist with new id [87024f72df04bb04ae54e7359f1a5fee] saved!
+[2019-04-28 03:33:31,010] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,010] INFO in server: Find all
+[2019-04-28 03:33:31,016] INFO in server: [3] Wishlists returned
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_create_wishlist_from_formdata" time="0.071"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,018] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1a6137
+87024f72df04bb04ae54e7359f1a692a
+[2019-04-28 03:33:31,075] INFO in server: Request to Create a Wishlist...
+[2019-04-28 03:33:31,075] INFO in server: Getting data from form submit
+[2019-04-28 03:33:31,075] INFO in server: {'customer_id': u'3', 'name': u'Timothy'}
+87024f72df04bb04ae54e7359f1a6e98
+[2019-04-28 03:33:31,087] INFO in server: Wishlist with new id [87024f72df04bb04ae54e7359f1a6e98] saved!
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_create_wishlist_no_content_type" time="0.055"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,089] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1a7b4d
+87024f72df04bb04ae54e7359f1a8664
+[2019-04-28 03:33:31,143] INFO in server: Request to Create a Wishlist...
+[2019-04-28 03:33:31,143] ERROR in server: No Content-Type specified.
+[2019-04-28 03:33:31,143] ERROR in error_handlers: 415 Unsupported Media Type: Content-Type must be application/json
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_create_wishlist_with_no_name" time="0.050"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,145] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1a9283
+87024f72df04bb04ae54e7359f1a9fa9
+[2019-04-28 03:33:31,193] INFO in server: Request to Create a Wishlist...
+[2019-04-28 03:33:31,194] INFO in server: Getting json data from API call
+[2019-04-28 03:33:31,194] INFO in server: {u'customer_id': u'9'}
+[2019-04-28 03:33:31,194] ERROR in error_handlers: Invalid wishlist: missing name
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_create_wishlist_wrong_content_type" time="0.047"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,196] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1aa9f7
+87024f72df04bb04ae54e7359f1aaf62
+[2019-04-28 03:33:31,242] INFO in server: Request to Create a Wishlist...
+[2019-04-28 03:33:31,243] ERROR in server: Invalid Content-Type: plain/text
+[2019-04-28 03:33:31,243] ERROR in error_handlers: 415 Unsupported Media Type: Content-Type must be application/json
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_delete_wishlist" time="0.091"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,245] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1abf23
+87024f72df04bb04ae54e7359f1abfde
+[2019-04-28 03:33:31,303] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,303] INFO in server: Find by name
+[2019-04-28 03:33:31,312] INFO in server: [1] Wishlists returned
+[2019-04-28 03:33:31,314] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,314] INFO in server: Find all
+[2019-04-28 03:33:31,320] INFO in server: [2] Wishlists returned
+[2019-04-28 03:33:31,322] INFO in server: Request to Delete a wishlist with id [87024f72df04bb04ae54e7359f1abf23]
+[2019-04-28 03:33:31,329] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,329] INFO in server: Find all
+[2019-04-28 03:33:31,335] INFO in server: [1] Wishlists returned
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_get_wishlist" time="0.062"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,337] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1acc34
+87024f72df04bb04ae54e7359f1ad1f9
+[2019-04-28 03:33:31,387] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,388] INFO in server: Find by name
+[2019-04-28 03:33:31,395] INFO in server: [1] Wishlists returned
+[2019-04-28 03:33:31,397] INFO in server: Request to Retrieve a wishlist with id [87024f72df04bb04ae54e7359f1ad1f9]
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_get_wishlist_list" time="0.060"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,399] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1ad4fd
+87024f72df04bb04ae54e7359f1ae2ea
+[2019-04-28 03:33:31,449] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,450] INFO in server: Find all
+[2019-04-28 03:33:31,458] INFO in server: [2] Wishlists returned
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_get_wishlist_not_found" time="0.053"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,461] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1aeb69
+87024f72df04bb04ae54e7359f1aebc6
+[2019-04-28 03:33:31,509] INFO in server: Request to Retrieve a wishlist with id [0]
+[2019-04-28 03:33:31,513] ERROR in error_handlers: 404 Not Found: Wishlist with id '0' was not found.
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_index" time="0.073"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,515] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1aec3c
+87024f72df04bb04ae54e7359f1afa30
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_query_by_customer_id" time="0.055"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,589] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1afa31
+87024f72df04bb04ae54e7359f1b006f
+[2019-04-28 03:33:31,634] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,635] INFO in server: Find by customer_id
+[2019-04-28 03:33:31,643] INFO in server: [1] Wishlists returned
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_query_by_name" time="0.048"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,646] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1b0e9c
+87024f72df04bb04ae54e7359f1b1e75
+[2019-04-28 03:33:31,688] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,688] INFO in server: Find by name
+[2019-04-28 03:33:31,693] INFO in server: [1] Wishlists returned
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_update_wishlist" time="0.064"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,695] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1b2908
+87024f72df04bb04ae54e7359f1b3551
+[2019-04-28 03:33:31,740] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,740] INFO in server: Find by name
+[2019-04-28 03:33:31,745] INFO in server: [1] Wishlists returned
+[2019-04-28 03:33:31,746] INFO in server: Request to Update a wishlist with id [87024f72df04bb04ae54e7359f1b2908]
+[2019-04-28 03:33:31,747] INFO in server: {u'customer_id': u'4', u'id': u'87024f72df04bb04ae54e7359f1b2908', u'name': u'fido'}
+[2019-04-28 03:33:31,758] INFO in server: Request to Retrieve a wishlist with id [87024f72df04bb04ae54e7359f1b2908]
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_update_wishlist_not_found" time="0.046"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,760] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1b36c2
+87024f72df04bb04ae54e7359f1b4497
+[2019-04-28 03:33:31,802] INFO in server: Request to Update a wishlist with id [0]
+[2019-04-28 03:33:31,805] ERROR in error_handlers: 404 Not Found: Wishlist with id '0' was not found.
+]]></system-out></testcase><testcase classname="test_server.TestWishlistServer" name="test_update_wishlist_with_no_name" time="0.052"><system-out><![CDATA[Setting up logging...
+[2019-04-28 03:33:31,806] INFO in server: Logging handler established
+87024f72df04bb04ae54e7359f1b4b14
+87024f72df04bb04ae54e7359f1b4f49
+[2019-04-28 03:33:31,848] INFO in server: Request to list Wishlists...
+[2019-04-28 03:33:31,848] INFO in server: Find by name
+[2019-04-28 03:33:31,854] INFO in server: [1] Wishlists returned
+[2019-04-28 03:33:31,857] INFO in server: Request to Update a wishlist with id [87024f72df04bb04ae54e7359f1b4b14]
+[2019-04-28 03:33:31,858] INFO in server: {u'customer_id': u'1', u'id': u'87024f72df04bb04ae54e7359f1b4b14'}
+[2019-04-28 03:33:31,858] ERROR in error_handlers: Invalid wishlist: missing name
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_add_a_wishlist" time="0.050"><system-out><![CDATA[87024f72df04bb04ae54e7359f1b5161
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_connection_error" time="0.022"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_create_a_wishlist" time="0.017"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_create_a_wishlist_with_no_name" time="0.016"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_create_query_index" time="0.037"><system-out><![CDATA[87024f72df04bb04ae54e7359f1b5594
+87024f72df04bb04ae54e7359f1b5cd8
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_delete_a_wishlist" time="0.050"><system-out><![CDATA[87024f72df04bb04ae54e7359f1b5cfe
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_deserialize_a_wishlist" time="0.017"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_deserialize_with_bad_data" time="0.014"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_deserialize_with_no_data" time="0.015"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_deserialize_with_no_name" time="0.017"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_disconnect" time="0.016"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_document_not_exist" time="0.021"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_find_by_customer_id" time="0.043"><system-out><![CDATA[87024f72df04bb04ae54e7359f1b67a1
+87024f72df04bb04ae54e7359f1b7715
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_find_by_name" time="0.050"><system-out><![CDATA[87024f72df04bb04ae54e7359f1b7dac
+87024f72df04bb04ae54e7359f1b8568
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_find_wishlist" time="0.041"><system-out><![CDATA[87024f72df04bb04ae54e7359f1b8d43
+87024f72df04bb04ae54e7359f1b95d6
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_find_with_no_wishlists" time="0.028"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_http_error" time="0.015"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_key_error_on_delete" time="0.025"><system-out><![CDATA[87024f72df04bb04ae54e7359f1ba005
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_key_error_on_update" time="0.028"><system-out><![CDATA[87024f72df04bb04ae54e7359f1ba5ee
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_save_a_wishlist_with_no_name" time="0.018"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_serialize_a_wishlist" time="0.013"></testcase><testcase classname="test_wishlists.TestWishlists" name="test_update_a_wishlist" time="0.036"><system-out><![CDATA[87024f72df04bb04ae54e7359f1bb3af
+]]></system-out></testcase><testcase classname="test_wishlists.TestWishlists" name="test_wishlist_not_found" time="0.030"><system-out><![CDATA[87024f72df04bb04ae54e7359f1bbe39
+]]></system-out></testcase></testsuite>
