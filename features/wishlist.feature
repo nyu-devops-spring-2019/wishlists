@@ -33,8 +33,7 @@ Scenario: Update a Wishlist
     When I visit the "Home Page"
     And I set the "Name" to "A"
     And I press the "Search" button
-    Then I should see "A" in the "Name" field
-    And I should see "100" in the "CustomerId" field
+    Then I should see "A" in the results
     When I change "Name" to "AB"
     And I press the "Update" button
     Then I should see the message "Success"
@@ -47,4 +46,3 @@ Scenario: Update a Wishlist
     And I press the "Search" button
     Then I should see "AB" in the results
     Then I should not see "A" in the results
-
