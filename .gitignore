@@ -1,6 +1,7 @@
 #Files to avoid checking into git
 *.DS_STORE
 *.pyc
+*.xml
 
 #Do not track Vagrant dotfile
 .vagrant
